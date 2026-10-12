@@ -1,0 +1,15 @@
+{
+  "jobs": [
+    {
+      "name": "daily-post",
+      "times": ["09:00", "18:30"],
+      "timezone": "Europe/Rome",
+      "publisher": "dry-run",
+      "grace_minutes": 5,
+      "max_lateness_minutes": 180,
+      "max_attempts": 3,
+      "backoff_minutes": [5, 15],
+      "stale_run_minutes": 20
+    }
+  ]
+}

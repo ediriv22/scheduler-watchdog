@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.example.schedwatch.scheduler</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/env</string><string>python3</string><string>-m</string><string>schedwatch</string>
+    <string>scheduler</string>
+    <string>--config</string><string>/path/to/config/jobs.json</string>
+    <string>--db</string><string>/path/to/data/runs.db</string>
+  </array>
+  <key>StartInterval</key><integer>60</integer>
+  <key>WorkingDirectory</key><string>/path/to/scheduler-watchdog</string>
+  <key>EnvironmentVariables</key><dict><key>PYTHONPATH</key><string>/path/to/scheduler-watchdog/src</string></dict>
+  <key>StandardOutPath</key><string>/path/to/data/scheduler.out.log</string>
+  <key>StandardErrorPath</key><string>/path/to/data/scheduler.err.log</string>
+</dict>
+</plist>
