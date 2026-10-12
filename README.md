@@ -1,5 +1,7 @@
 # schedwatch
 
+[![CI](https://github.com/ediriv22/scheduler-watchdog/actions/workflows/ci.yml/badge.svg)](https://github.com/ediriv22/scheduler-watchdog/actions/workflows/ci.yml) ![python](https://img.shields.io/badge/python-3.10%2B-blue) ![deps](https://img.shields.io/badge/dependencies-none-brightgreen) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
+
 A small scheduler with an **independent watchdog** for jobs that must run at fixed times and must never run twice, such as publishing a post, sending a report or syncing data. Pure Python standard library, no dependencies.
 
 It is a clean, generic version of a pattern I use in my own automation home lab, where a daily publisher on a laptop has to survive expired tokens, API errors, crashes and a machine that falls asleep.

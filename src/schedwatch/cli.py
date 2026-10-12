@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import tempfile
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -15,7 +16,7 @@ from .store import Store
 def _demo() -> None:
     """Simulated morning: the publisher fails twice, the watchdog retries, nothing is posted twice."""
     cfg = Config.load(Path(__file__).resolve().parents[2] / "config" / "jobs.example.json")
-    cfg.jobs[0] = type(cfg.jobs[0])(**{**cfg.jobs[0].__dict__, "publisher": "flaky", "times": ("09:00",)})
+    cfg.jobs[0] = dataclasses.replace(cfg.jobs[0], publisher="flaky", times=("09:00",))
     flaky = FlakyPublisher(failures=2)
     tmp = Path(tempfile.mkdtemp())
     eng = Engine(cfg, Store(tmp / "demo.db"), tmp, ConsoleNotifier(), {"flaky": flaky})
@@ -42,6 +43,8 @@ def main(argv: list[str] | None = None) -> int:
         for r in store.recent():
             print(f"{r['job']} {r['slot']} #{r['attempt']} {r['status']} {r['error'] or ''}")
         return 0
+    if not Path(a.config).exists():
+        p.error(f"config not found: {a.config} (copy config/jobs.example.json to config/jobs.json)")
     eng = Engine(Config.load(a.config), store, a.lock_dir, from_env())
     for line in eng.sweep(a.command, datetime.now(timezone.utc)):
         print(line)
